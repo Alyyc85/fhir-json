@@ -2,20 +2,23 @@
   <h1>FHIR JSON</h1>
   <div>URL Resource:</div>
   <div class="url">
-    <input type="text" value="Patient/1412083" #url>
+    <!-- <input type="text" value="Patient/1412083" #url>-->
+    <input type="text" value="Patient/10" #url />
+
     <button (click)="loadResource(url.value)">LOAD</button>
   </div>
-  <div class="view" *ngFor="let item of view">
-    <div class="cell">{{item.name}}</div>
+  <!-- <div class="view" *ngFor="let item of view">
+    <div class="cell">{{ item.name }}</div>
     <div class="cell">
       <pre><code>{{item.resolver}}</code></pre>
     </div>
-  </div>
+  </div>-->
+  <fhir-container [signatures]="views"></fhir-container>
   <div class="json">
     <pre>
-      <code>
+       <code>
         {{resource | json}}
-      </code>
+      </code> 
     </pre>
   </div>
 </div>

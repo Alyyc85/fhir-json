@@ -1,18 +1,22 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
+import { FhirContainerComponent } from './fhir-container.component';
+import { FhirDynamicDirective } from './fhir-dynamic.directive';
+import { MetaComponent } from './meta.component';
+import { PrimitiveComponent } from './primitive.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MetaComponent,
+    FhirDynamicDirective,
+    FhirContainerComponent,
+    PrimitiveComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule
-  ],
+  imports: [BrowserModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

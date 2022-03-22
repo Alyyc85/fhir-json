@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as _jpath from 'jsonpath';
+
+const jPath = _jpath;
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +17,8 @@ export class FhirService {
   }
 
   getResource(url: string) {
-    return this.httpClient.get(`http://hapi.fhir.org/baseR4/${url}`);
+    // return this.httpClient.get(`http://hapi.fhir.org/baseR4/${url}`);
+    return this.httpClient.get(`http://test.fhir.org/r4//${url}`);
   }
 
   getView(resource: any) {
@@ -76,5 +80,63 @@ export class FhirService {
       code: `${value} (code)`,
     };
     return elements[ref];
+  }
+
+  testSplit(resource: any, schemaInput?: any): any {
+    const rT = resource.resourceType;
+    const schema = schemaInput
+      ? this.schema.definitions[schemaInput]
+      : this.schema.definitions[rT];
+    const keys = Object.entries(resource);
+    let tst: any[] = [];
+    keys.map((k) => {
+      tst = [
+        ...tst,
+        {
+          definitions: jPath.query(schema, `$..${k[0]}`),
+          value: k[1],
+          displayProp: k[0],
+        },
+      ];
+    });
+    console.log(tst, 'tst');
+
+    const mapped = (res: any[]) => {
+      return res.map((r) => {
+        if (r.definitions[0].hasOwnProperty('$ref')) {
+          const propRef = r.definitions[0].$ref.replace('#/definitions/', '');
+          const formatted = this.format(propRef, r.value, r.displayProp);
+          console.log(formatted, 'formatted');
+          return formatted;
+        }
+        return null;
+      });
+    };
+    const toRet = mapped(tst);
+    console.log(toRet);
+    return toRet;
+  }
+
+  private format(propRef: string, value: any, displayProp: string) {
+    const getContent = (value: any): any => {
+      if (
+        typeof value === 'boolean' ||
+        typeof value === 'string' ||
+        typeof value === 'number'
+      ) {
+        return value;
+      } else if (Array.isArray(value)) {
+        return value.map((v) => getContent(v));
+      } else {
+        console.log(value, propRef, 'value-propRef');
+        const prova = this.testSplit(value, propRef);
+        return prova;
+      }
+    };
+    return {
+      signature: propRef.toLowerCase(),
+      content: getContent(value),
+      prop: displayProp,
+    };
   }
 }
