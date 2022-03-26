@@ -28,9 +28,11 @@ export class FhirContainerComponent implements OnChanges {
         this.resource,
         this.definition
       );
+      console.log(signatures, 'signatures');
       if (signatures) {
         const toRet: any[] = [];
         signatures.forEach((s) => {
+          console.log(s, 'S');
           if (!s) {
             return;
           }
