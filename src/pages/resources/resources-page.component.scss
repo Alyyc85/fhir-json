@@ -1,0 +1,41 @@
+:host {
+  padding: 12px;
+  display: block;
+}
+
+.content {
+  padding: 12px 0;
+  .chip {
+    margin: 0 5px 3px 0;
+  }
+}
+
+.chip {
+  display: inline-block;
+  background: #e0e0e0;
+  padding: 0 12px;
+  border-radius: 32px;
+  font-size: 13px;
+  cursor: pointer;
+  &:hover {
+    background: #ccc;
+  }
+}
+
+.chip,
+i {
+  height: 32px;
+  line-height: 32px;
+}
+
+i {
+  display: block;
+  float: left;
+  background: black;
+  font-size: 12px;
+  width: 32px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  margin: 0 8px 0 -12px;
+}

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { CmpGenericInj } from './fhir-container.component';
+import { CmpGenericInj } from '../cmp-token';
 
 @Component({
   selector: 'app.primitive',

@@ -1,24 +1,2 @@
-<div class="container">
-  <h1>FHIR JSON</h1>
-  <div>URL Resource:</div>
-  <div class="url">
-    <!-- <input type="text" value="Patient/1412083" #url>-->
-    <input type="text" value="Patient/10" #url />
-
-    <button (click)="loadResource(url.value)">LOAD</button>
-  </div>
-  <!-- <div class="view" *ngFor="let item of view">
-    <div class="cell">{{ item.name }}</div>
-    <div class="cell">
-      <pre><code>{{item.resolver}}</code></pre>
-    </div>
-  </div>-->
-  <fhir-container [signatures]="views"></fhir-container>
-  <div class="json">
-    <pre>
-       <code>
-        {{resource | json}}
-      </code> 
-    </pre>
-  </div>
-</div>
+<header>FHIR JSON</header>
+<router-outlet></router-outlet>

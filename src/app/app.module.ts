@@ -1,21 +1,33 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
+import { DateFnsModule } from 'ngx-date-fns';
 import { AppComponent } from './app.component';
-import { FhirContainerComponent } from './fhir-container.component';
-import { FhirDynamicDirective } from './fhir-dynamic.directive';
-import { MetaComponent } from './meta.component';
-import { PrimitiveComponent } from './primitive.component';
+
+const appRoutes: Routes = [
+  {
+    path: 'landing',
+    loadChildren: () =>
+      import('src/pages/resources/resources.module').then(
+        (m) => m.ResourceModule
+      ),
+  },
+  {
+    path: '',
+    redirectTo: 'landing',
+    pathMatch: 'full',
+  },
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MetaComponent,
-    FhirDynamicDirective,
-    FhirContainerComponent,
-    PrimitiveComponent,
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
+    DateFnsModule.forRoot(),
   ],
-  imports: [BrowserModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
