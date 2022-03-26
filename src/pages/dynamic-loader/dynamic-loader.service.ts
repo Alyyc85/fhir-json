@@ -12,7 +12,7 @@ export class DynamicLoaderService {
   private urlVisited$ = new BehaviorSubject<UrlVisited[]>([]);
   constructor() {
     const f5 = localStorage.getItem('urlVisited');
-    console.log(f5);
+    console.info('[Link restored from localStorage]', '\n', f5);
     if (f5) {
       this.urlVisited$.next(JSON.parse(f5));
     }
@@ -25,7 +25,7 @@ export class DynamicLoaderService {
     );
     if (check) {
       // è un ritorno
-      console.log('da gestire');
+      console.warn('TODO, ritorno');
     } else {
       value.push(content);
       this.urlVisited$.next(value);

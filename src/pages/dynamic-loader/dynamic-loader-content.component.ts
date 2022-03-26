@@ -8,10 +8,16 @@ import { DynamicLoaderService } from './dynamic-loader.service';
   selector: 'app-dynamic-loader-content',
   template: `
     <div class="content-title">Selected {{ selected }}</div>
+    <div class="action">
+      <button (click)="hideSchema()">
+        {{ showSchema ? 'Hide' : 'Show' }} structure info
+      </button>
+    </div>
     <div class="content">
       <fhir-container
         [resource]="resource$ | async"
         [definition]="definition"
+        [showSchema]="showSchema"
       ></fhir-container>
     </div>
   `,
@@ -21,6 +27,7 @@ export class DynamicLoaderContentComponent implements OnInit {
   selected: string;
   resource$: Observable<any>;
   definition: string;
+  showSchema: boolean = true;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -40,4 +47,8 @@ export class DynamicLoaderContentComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  hideSchema() {
+    this.showSchema = !this.showSchema;
+  }
 }

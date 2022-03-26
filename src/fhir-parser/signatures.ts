@@ -35,7 +35,7 @@ export interface Signature {
 }
 
 export const signatureType: Signature[] = [
-  { definition: 'meta', instance: MetaComponent },
+  { definition: 'Meta', instance: MetaComponent },
   { definition: 'id', instance: PrimitiveComponent },
   { definition: 'instant', instance: PrimitiveComponent },
 ];

@@ -21,5 +21,8 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(`I console.log sono impostati su info per i check, su warning per i punti critici,\n
+    impostare i livelli desiderati per sfoltire le notifiche`);
+  }
 }

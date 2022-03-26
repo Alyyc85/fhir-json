@@ -1,28 +1,30 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CmpGenericInj } from '../cmp-token';
+import { Signature } from '../signatures';
 
 @Component({
-  selector: 'app.primitive',
+  selector: 'app-primitive',
   template: `
-    <label>
-      <span>{{ display }}</span></label
-    >
+    <div>
+      <label>{{ obj.options.displayProp }}:</label>{{ display }}
+    </div>
+    <label> </label>
   `,
 })
 export class PrimitiveComponent implements OnInit {
   display: string;
-  constructor(@Inject(CmpGenericInj) public content: any) {}
+  constructor(@Inject(CmpGenericInj) public obj: Signature) {}
 
   ngOnInit() {
-    if (this.content) {
+    if (this.obj) {
       this.display =
-        typeof this.content === 'boolean' && this.content
+        typeof this.obj.content === 'boolean' && this.obj
           ? 'Si'
-          : typeof this.content === 'boolean' && !this.content
+          : typeof this.obj.content === 'boolean' && !this.obj
           ? 'No'
-          : typeof this.content === 'string'
-          ? this.content
-          : this.content.toString();
+          : typeof this.obj.content === 'string'
+          ? this.obj.content
+          : this.obj.content.toString();
     }
   }
 }

@@ -46,8 +46,11 @@ export class FhirService {
       ];
     });
 
+    const infoMe = (obj: any, type: string) =>
+      console.info('[Fhir service schemaCheck]', '\n', type, obj);
+
     const mapped = elaborateResource.map((res) => {
-      if (res.schemaValue.hasOwnProperty('$ref')) {
+      if (res.schemaValue?.hasOwnProperty('$ref')) {
         // A $ref deve corrispondere ciascun elemento atomico finale
         // il "data type" da mostrare con le proprie regole
         const minimizedDef = res.schemaValue.$ref.replace(defConst, '');
@@ -56,25 +59,26 @@ export class FhirService {
           res.itemResourceValue,
           res.displayProp
         );
+        infoMe(res.schemaValue.$ref, '$ref');
         return refRet;
-      } else if (res.schemaValue.hasOwnProperty('const')) {
+      } else if (res.schemaValue?.hasOwnProperty('const')) {
         // Const è l'elemento radice della risorsa,
         // dovrebbe corrispondere al resourceType caricato,
         // al momento si può ignorare
-        console.log('const', res.schemaValue.const);
+        infoMe(res.schemaValue.const, 'const');
         return null;
-      } else if (res.schemaValue.hasOwnProperty('type')) {
+      } else if (res.schemaValue?.hasOwnProperty('type')) {
         // Il type è array, avranno un $ref unico per ciascun elemento
         // vedo di ricavare il value richiamando la funzione
         // solo che deve produrre un array
-        console.log('type', res.schemaValue.type);
+        infoMe(res.schemaValue.type, 'type');
         return null;
       } else {
         return null;
       }
     });
 
-    console.log(mapped, 'resolvedResourceMapped');
+    console.info('[Fhir service resolved signature]', '\n', mapped);
 
     return mapped;
   }

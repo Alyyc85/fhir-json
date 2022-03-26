@@ -53,3 +53,9 @@ table {
     }
   }
 }
+
+.action {
+  display: grid;
+  justify-content: flex-end;
+  padding: 8px;
+}
