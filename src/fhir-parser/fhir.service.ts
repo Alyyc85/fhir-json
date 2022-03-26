@@ -10,7 +10,10 @@ const jPath = _jpath;
   providedIn: 'root',
 })
 export class FhirService {
-  schema: any;
+  private schema: any;
+
+  showSchema: boolean = true;
+  showDefinition: boolean = true;
 
   constructor(private httpClient: HttpClient) {
     this.httpClient.get('assets/fhir.schema.json').subscribe((data) => {

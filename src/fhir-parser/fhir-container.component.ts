@@ -13,13 +13,15 @@ import { signatureType } from './signatures';
   selector: 'fhir-container',
   template: `
     <div class="container" *ngFor="let cmp of cmps; let i = index">
-      <div class="header" *ngIf="showSchema">
-        <label class="info">Structure info</label>
+      <div class="header" *ngIf="fhirSrv.showSchema">
         <div><label>Definition:</label>{{ cmp.definition }}</div>
         <div><label>Property binding:</label>{{ cmp.obj.displayProp }}</div>
         <div><label>Class used:</label>{{ getClass(cmp.instance) }}</div>
       </div>
-      <div class="content">
+      <div class="content" [ngClass]="{ splitted: fhirSrv.showDefinition }">
+        <div class="definition" *ngIf="fhirSrv.showDefinition">
+          {{ cmp.definition }}
+        </div>
         <ng-container
           *ngComponentOutlet="cmp.instance; injector: cmp.injector"
         ></ng-container>
@@ -31,12 +33,11 @@ import { signatureType } from './signatures';
 export class FhirContainerComponent implements OnChanges {
   @Input() resource: any;
   @Input() definition: string;
-  @Input() showSchema: boolean;
   @Input() resolved: boolean;
 
   cmps: any[];
 
-  constructor(private inj: Injector, private fhirSrv: FhirService) {}
+  constructor(private inj: Injector, public fhirSrv: FhirService) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['resource'] && this.resource) {

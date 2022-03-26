@@ -1,5 +1,12 @@
 import { Type } from '@angular/core';
-import { MetaComponent, PrimitiveComponent } from './dynamic-instance';
+import {
+  DateComponent,
+  MetaComponent,
+  NarrativeComponent,
+  PrimitiveComponent,
+  XhtmlComponent,
+} from './dynamic-instance';
+import { CodeComponent } from './dynamic-instance/code.component';
 
 export interface Signature {
   /**
@@ -37,5 +44,11 @@ export interface Signature {
 export const signatureType: Signature[] = [
   { definition: 'Meta', instance: MetaComponent },
   { definition: 'id', instance: PrimitiveComponent },
-  { definition: 'instant', instance: PrimitiveComponent },
+  { definition: 'string', instance: PrimitiveComponent },
+  { definition: 'boolean', instance: PrimitiveComponent },
+  { definition: 'instant', instance: DateComponent },
+  { definition: 'date', instance: DateComponent },
+  { definition: 'xhtml', instance: XhtmlComponent },
+  { definition: 'Narrative', instance: NarrativeComponent },
+  { definition: 'code', instance: CodeComponent },
 ];

@@ -1,0 +1,29 @@
+.header {
+  font-size: 10px;
+  background: #f4f4f4;
+  padding: 8px;
+  border-radius: 4px;
+  color: #555;
+
+  label {
+    font-weight: bold;
+  }
+}
+
+.content {
+  display: grid;
+  column-gap: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 4px 0;
+  &.splitted {
+    grid-template-columns: 80px 1fr;
+  }
+  .definition {
+    font-weight: bold;
+  }
+}
+
+.container {
+  display: grid;
+  row-gap: 2px;
+}

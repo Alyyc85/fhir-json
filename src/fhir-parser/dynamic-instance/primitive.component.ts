@@ -8,8 +8,8 @@ import { Signature } from '../signatures';
     <div>
       <label>{{ obj.options.displayProp }}:</label>{{ display }}
     </div>
-    <label> </label>
   `,
+  styleUrls: ['instance.scss'],
 })
 export class PrimitiveComponent implements OnInit {
   display: string;

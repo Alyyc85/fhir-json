@@ -57,5 +57,7 @@ table {
 .action {
   display: grid;
   justify-content: flex-end;
+  grid-template-columns: repeat(2, max-content);
+  column-gap: 4px;
   padding: 8px;
 }

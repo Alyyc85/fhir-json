@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FhirGetService } from 'src/commons/fhir-get.service';
+import { FhirService } from 'src/fhir-parser/fhir.service';
 import { DynamicLoaderService } from './dynamic-loader.service';
 
 @Component({
@@ -9,15 +10,17 @@ import { DynamicLoaderService } from './dynamic-loader.service';
   template: `
     <div class="content-title">Selected {{ selected }}</div>
     <div class="action">
+      <button (click)="hideDefinition()">
+        {{ fhirSrv.showDefinition ? 'Hide' : 'Show' }} definitions
+      </button>
       <button (click)="hideSchema()">
-        {{ showSchema ? 'Hide' : 'Show' }} structure info
+        {{ fhirSrv.showSchema ? 'Hide' : 'Show' }} structure info
       </button>
     </div>
     <div class="content">
       <fhir-container
         [resource]="resource$ | async"
         [definition]="definition"
-        [showSchema]="showSchema"
       ></fhir-container>
     </div>
   `,
@@ -27,12 +30,12 @@ export class DynamicLoaderContentComponent implements OnInit {
   selected: string;
   resource$: Observable<any>;
   definition: string;
-  showSchema: boolean = true;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private loaderService: DynamicLoaderService,
-    private fhirGet: FhirGetService
+    private fhirGet: FhirGetService,
+    public fhirSrv: FhirService
   ) {
     const toLoadId = this.route.snapshot.queryParams['id'];
     const toLoadType = this.route.snapshot.queryParams['type'];
@@ -49,6 +52,9 @@ export class DynamicLoaderContentComponent implements OnInit {
   ngOnInit() {}
 
   hideSchema() {
-    this.showSchema = !this.showSchema;
+    this.fhirSrv.showSchema = !this.fhirSrv.showSchema;
+  }
+  hideDefinition() {
+    this.fhirSrv.showDefinition = !this.fhirSrv.showDefinition;
   }
 }
