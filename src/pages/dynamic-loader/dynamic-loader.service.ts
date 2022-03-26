@@ -56,6 +56,6 @@ export class DynamicLoaderService {
   }
 
   private storeUrl() {
-    localStorage.setItem('urlVisited', JSON.stringify(this.urlVisited$));
+    localStorage.setItem('urlVisited', JSON.stringify(this.urlVisited$.value));
   }
 }
