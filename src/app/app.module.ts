@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
     DateFnsModule.forRoot(),
   ],
   providers: [],

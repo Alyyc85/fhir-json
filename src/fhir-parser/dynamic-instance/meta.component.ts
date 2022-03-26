@@ -10,9 +10,7 @@ import { Signature } from '../signatures';
 })
 export class MetaComponent implements OnInit {
   views: any[];
-  constructor(@Inject(CmpGenericInj) public obj: Signature) {
-    console.log(obj, 'salve');
-  }
+  constructor(@Inject(CmpGenericInj) public obj: Signature) {}
 
   ngOnInit() {}
 }

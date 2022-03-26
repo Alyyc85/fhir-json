@@ -1,12 +1,5 @@
 import { Type } from '@angular/core';
-import {
-  DateComponent,
-  MetaComponent,
-  NarrativeComponent,
-  PrimitiveComponent,
-  XhtmlComponent,
-} from './dynamic-instance';
-import { CodeComponent } from './dynamic-instance/code.component';
+import { dynamicCmpsObj } from './dynamic-instance';
 
 export interface Signature {
   /**
@@ -42,13 +35,14 @@ export interface Signature {
 }
 
 export const signatureType: Signature[] = [
-  { definition: 'Meta', instance: MetaComponent },
-  { definition: 'id', instance: PrimitiveComponent },
-  { definition: 'string', instance: PrimitiveComponent },
-  { definition: 'boolean', instance: PrimitiveComponent },
-  { definition: 'instant', instance: DateComponent },
-  { definition: 'date', instance: DateComponent },
-  { definition: 'xhtml', instance: XhtmlComponent },
-  { definition: 'Narrative', instance: NarrativeComponent },
-  { definition: 'code', instance: CodeComponent },
+  { definition: 'Meta', instance: dynamicCmpsObj.MetaComponent },
+  { definition: 'id', instance: dynamicCmpsObj.PrimitiveComponent },
+  { definition: 'string', instance: dynamicCmpsObj.PrimitiveComponent },
+  { definition: 'boolean', instance: dynamicCmpsObj.PrimitiveComponent },
+  { definition: 'instant', instance: dynamicCmpsObj.DateComponent },
+  { definition: 'date', instance: dynamicCmpsObj.DateComponent },
+  { definition: 'xhtml', instance: dynamicCmpsObj.XhtmlComponent },
+  { definition: 'Narrative', instance: dynamicCmpsObj.NarrativeComponent },
+  { definition: 'code', instance: dynamicCmpsObj.CodeComponent },
+  { definition: 'Reference', instance: dynamicCmpsObj.ReferenceComponent },
 ];
