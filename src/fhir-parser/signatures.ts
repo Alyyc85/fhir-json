@@ -45,4 +45,7 @@ export const signatureType: Signature[] = [
   { definition: 'Narrative', instance: dynamicCmpsObj.NarrativeComponent },
   { definition: 'code', instance: dynamicCmpsObj.CodeComponent },
   { definition: 'Reference', instance: dynamicCmpsObj.ReferenceComponent },
+  { definition: 'HumanName', instance: dynamicCmpsObj.HumanNameComponent },
+  { definition: 'todo', instance: dynamicCmpsObj.TodoComponent },
+  { definition: 'Address', instance: dynamicCmpsObj.AddressComponent },
 ];

@@ -7,7 +7,7 @@ import { Signature } from '../signatures';
   selector: 'app-date',
   template: `
     <div>
-      <label>{{ obj.options.displayProp }}:</label>{{ display }}
+      <label>{{ obj.displayProp }}:</label>{{ display }}
     </div>
   `,
   styleUrls: ['instance.scss'],

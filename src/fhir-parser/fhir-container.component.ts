@@ -15,8 +15,11 @@ import { signatureType } from './signatures';
     <div class="container" *ngFor="let cmp of cmps; let i = index">
       <div class="header" *ngIf="fhirSrv.showSchema">
         <div><label>Definition:</label>{{ cmp.definition }}</div>
-        <div><label>Property binding:</label>{{ cmp.obj.displayProp }}</div>
-        <div><label>Class used:</label>{{ getClass(cmp.instance) }}</div>
+        <div>
+          <label>Property binding:</label>{{ cmp.obj.displayProp }} |
+          <label>Class used:</label>{{ getClass(cmp.instance) }}
+        </div>
+        <div><label>Description:</label>{{ cmp.obj.options.description }}</div>
       </div>
       <div class="content" [ngClass]="{ splitted: fhirSrv.showDefinition }">
         <div class="definition" *ngIf="fhirSrv.showDefinition">
@@ -50,12 +53,13 @@ export class FhirContainerComponent implements OnChanges {
           if (!s) {
             return;
           }
-          const instance = signatureType.find(
+          const founded = signatureType.find(
             (c) => c.definition === s.definition
           );
-          if (!instance) {
-            return;
-          }
+          const instance = founded
+            ? founded
+            : signatureType.find((s) => s.definition === 'todo');
+
           toRet.push({
             ...this.setInj(s),
             ...instance,

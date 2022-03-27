@@ -10,3 +10,7 @@ a {
   text-decoration: underline;
   color: blue;
 }
+
+pre code {
+  font-size: 10px;
+}

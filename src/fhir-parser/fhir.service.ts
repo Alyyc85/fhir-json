@@ -49,8 +49,8 @@ export class FhirService {
       ];
     });
 
-    const infoMe = (obj: any, type: string) =>
-      console.info('[Fhir service schemaCheck]', '\n', type, obj);
+    const infoMe = (obj: any, type: string, params?: any) =>
+      console.info('[Fhir service schemaCheck]', '\n', type, obj, params);
 
     const mapped = elaborateResource.map((res) => {
       if (res.schemaValue?.hasOwnProperty('$ref')) {
@@ -62,6 +62,10 @@ export class FhirService {
           res.itemResourceValue,
           res.displayProp
         );
+        refRet.options = {
+          ...refRet.options,
+          description: res.schemaValue.description,
+        };
         infoMe(res.schemaValue.$ref, '$ref');
         return refRet;
       } else if (res.schemaValue?.hasOwnProperty('const')) {
@@ -74,9 +78,32 @@ export class FhirService {
         // Il type è array, avranno un $ref unico per ciascun elemento
         // vedo di ricavare il value richiamando la funzione
         // solo che deve produrre un array
-        infoMe(res.schemaValue.type, 'type');
-        return null;
+        let typeRef: any;
+        if (res.schemaValue.hasOwnProperty('items')) {
+          const minimizedType = res.schemaValue.items.$ref.replace(
+            defConst,
+            ''
+          );
+          typeRef = this.formatRef(
+            minimizedType,
+            res.itemResourceValue,
+            res.displayProp
+          );
+          typeRef.options = {
+            ...typeRef.options,
+            description: res.schemaValue.description,
+          };
+        } else if (res.schemaValue.hasOwnProperty('pattern')) {
+          console.log(res.schemaValue);
+        }
+
+        infoMe(res.schemaValue.type, 'type', res);
+
+        return typeRef;
       } else {
+        // Questi sono gli altri valori per gestire una risorsa,
+        // servono come options nelle crud
+        console.warn('unknown', res);
         return null;
       }
     });
@@ -106,13 +133,18 @@ export class FhirService {
         return this.resolveResource(value, minimizedDef);
       }
     };
+    const founded = signatureType.find(
+      (s) => s.definition === minimizedDef
+    )?.instance;
+    const instance = founded
+      ? founded
+      : signatureType.find((s) => s.definition === 'todo').instance;
     return {
       definition: minimizedDef,
-      instance: signatureType.find((s) => s.definition === minimizedDef)
-        ?.instance,
+      instance,
       displayProp,
       content: getContent(itemResourceValue),
-      options: { definition: minimizedDef, displayProp },
+      options: {},
     };
   }
 }

@@ -3,15 +3,19 @@ import { CmpGenericInj } from '../cmp-token';
 import { Signature } from '../signatures';
 
 @Component({
-  selector: 'app-code',
+  selector: 'app-todo',
   template: `
     <div>
-      <label>{{ obj.displayProp }}:</label><code>{{ obj.content }}</code>
+      <label
+        ><span style="color:red">TODO</span> -
+        {{ obj.options.displayProp }}:</label
+      >
+      <pre><code>{{obj | json}}</code></pre>
     </div>
   `,
   styleUrls: ['instance.scss'],
 })
-export class CodeComponent implements OnInit {
+export class TodoComponent implements OnInit {
   constructor(@Inject(CmpGenericInj) public obj: Signature) {}
 
   ngOnInit() {}

@@ -8,7 +8,7 @@ import { Signature } from '../signatures';
   selector: 'app-reference',
   template: `
     <div>
-      <label>{{ obj.options.displayProp }}:</label
+      <label>{{ obj.displayProp }}:</label
       ><a (click)="navigateReference()">{{ display }}</a>
     </div>
   `,

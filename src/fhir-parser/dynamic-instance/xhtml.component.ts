@@ -6,7 +6,7 @@ import { Signature } from '../signatures';
   selector: 'app-xhtml',
   template: `
     <div>
-      <label>{{ obj.options.displayProp }}:</label
+      <label>{{ obj.displayProp }}:</label
       ><span [innerHTML]="obj.content"></span>
     </div>
   `,

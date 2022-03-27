@@ -3,15 +3,15 @@ import { CmpGenericInj } from '../cmp-token';
 import { Signature } from '../signatures';
 
 @Component({
-  selector: 'app-code',
+  selector: 'app-address',
   template: `
-    <div>
-      <label>{{ obj.displayProp }}:</label><code>{{ obj.content }}</code>
-    </div>
+    <fhir-container
+      [resource]="obj.content[0]"
+      [resolved]="true"
+    ></fhir-container>
   `,
-  styleUrls: ['instance.scss'],
 })
-export class CodeComponent implements OnInit {
+export class AddressComponent implements OnInit {
   constructor(@Inject(CmpGenericInj) public obj: Signature) {}
 
   ngOnInit() {}

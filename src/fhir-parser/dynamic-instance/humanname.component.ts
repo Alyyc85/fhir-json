@@ -3,7 +3,7 @@ import { CmpGenericInj } from '../cmp-token';
 import { Signature } from '../signatures';
 
 @Component({
-  selector: 'app-primitive',
+  selector: 'app-human-name',
   template: `
     <div>
       <label>{{ obj.displayProp }}:</label>{{ display }}
@@ -11,20 +11,20 @@ import { Signature } from '../signatures';
   `,
   styleUrls: ['instance.scss'],
 })
-export class PrimitiveComponent implements OnInit {
+export class HumanNameComponent implements OnInit {
   display: string;
   constructor(@Inject(CmpGenericInj) public obj: Signature) {}
 
   ngOnInit() {
     if (this.obj) {
       this.display =
-        typeof this.obj.content === 'boolean' && this.obj
-          ? 'Si'
-          : typeof this.obj.content === 'boolean' && !this.obj
-          ? 'No'
-          : typeof this.obj.content === 'string'
-          ? this.obj.content
-          : this.obj.content.toString();
+        this.obj.content[0].find(
+          (c: { displayProp: string }) => c.displayProp === 'given'
+        )?.content[0] +
+        ' ' +
+        this.obj.content[0].find(
+          (c: { displayProp: string }) => c.displayProp === 'family'
+        )?.content;
     }
   }
 }
